@@ -1,0 +1,12 @@
+# Folder skema & migrasi basis data. Isinya memuat hash sandi dan
+# struktur seluruh sistem — tidak pernah boleh diminta lewat peramban.
+# Dijalankan lewat phpMyAdmin / mysql CLI, bukan lewat HTTP.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</IfModule>

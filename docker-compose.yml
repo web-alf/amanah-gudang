@@ -1,0 +1,31 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/app.local.php:/var/www/html/config.local.php:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: gudang_bayi
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/instal_database.sql:/docker-entrypoint-initdb.d/01-instal.sql:ro
+      - ./docker/seed_admin.sql:/docker-entrypoint-initdb.d/02-seed_admin.sql:ro
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  db_data:

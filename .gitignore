@@ -1,0 +1,24 @@
+# Rahasia dan data per-pemasangan — JANGAN masuk riwayat git
+config.local.php
+sesi/
+
+# Docker — data volume lokal (config docker/app.local.php TETAP ikut repo,
+# isinya cuma kredensial dev MariaDB lokal di docker-compose.yml, bukan rahasia asli)
+unggahan/*
+!unggahan/.htaccess
+unduhan/*.apk
+# Cadangan basis data berisi data nyata
+db/_backup_*.sql
+db/arsip_sql/
+# Salinan lama & folder unggah sementara
+Gudang_extracted/
+Gudang_UNGGAH_*/
+*.zip
+.claude/
+# Berkas cadangan basis data berisi data nyata
+cadangan_berkas/*
+!cadangan_berkas/.htaccess
+
+# Kunci akun layanan Google (rahasia) — jangan pernah masuk repo / folder web
+*.json
+!assets/**/*.json

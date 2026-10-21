@@ -1,0 +1,88 @@
+# =====================================================================
+#  AMANAH REST API — konfigurasi folder /api
+#
+#  BERKAS INI WAJIB IKUT TERUNGGAH. Tanpa ini aplikasi Android tidak
+#  bisa masuk sama sekali, dan gejalanya menyesatkan: bukan pesan galat,
+#  melainkan "Email atau kata sandi salah" pada kredensial yang benar.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 1. MATIKAN PENULISAN ULANG URL  ← bagian terpenting
+# ---------------------------------------------------------------------
+# Hosting ini (LiteSpeed/cPanel) memasang aturan "hapus ekstensi .php"
+# untuk seluruh domain. Di peramban itu tidak terasa. Untuk aplikasi
+# Android akibatnya fatal:
+#
+#   1. Aplikasi mengirim  POST /api/login.php  berisi email & sandi
+#   2. Server membalas    301 -> /api/login
+#   3. OkHttp mengikuti redirect, TAPI mengubah POST menjadi GET
+#      (perilaku baku HTTP untuk 301) — badan permintaannya dibuang
+#   4. login.php menerima GET tanpa email/sandi, lalu menolak
+#
+#   Yang terlihat pengguna: "Email atau kata sandi salah", padahal
+#   kredensialnya benar. Tidak ada satu pun pesan yang menyebut redirect.
+#
+# Alamat API harus dilayani APA ADANYA. Baris di bawah mematikan seluruh
+# penulisan ulang yang diwarisi dari folder induk, khusus untuk /api.
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+
+# Cadangan bila hosting memakai mod_speling/mod_dir yang "menebak" nama
+# berkas — penebakan itu juga menghasilkan redirect.
+<IfModule mod_speling.c>
+    CheckSpelling Off
+</IfModule>
+<IfModule mod_dir.c>
+    DirectorySlash Off
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 2. Lindungi berkas pembantu (_bootstrap.php, _jwt.php, _lingkup.php)
+# ---------------------------------------------------------------------
+# Dibungkus <IfModule>, sama seperti .htaccess induk. Alasannya sama:
+# arahan yang tidak dikenali membuat Apache membalas 500 untuk SELURUH
+# folder, dan halaman galatnya tidak menyebut penyebabnya sama sekali.
+#
+# Versi sebelumnya memakai "Order allow,deny" telanjang — sintaks Apache
+# 2.2. Di server yang tidak memuat mod_access_compat, arahan itu sendiri
+# yang menjatuhkan seluruh folder api.
+<IfModule mod_authz_core.c>
+    <FilesMatch "^_">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+        <FilesMatch "^_">
+            Order allow,deny
+            Deny from all
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 3. Teruskan header Authorization ke PHP
+# ---------------------------------------------------------------------
+# Sebagian hosting (terutama PHP sebagai CGI/FastCGI) MEMBUANG header
+# Authorization sebelum sampai ke PHP. Akibatnya setiap permintaan
+# setelah login ditolak 401 meski tokennya benar — dan aplikasi terlihat
+# seperti "selalu logout sendiri".
+#
+# _bootstrap.php sudah punya jalan mundur lewat apache_request_headers(),
+# tapi fungsi itu tidak ada di semua konfigurasi. Dua baris di bawah
+# menutup celahnya dari sisi server.
+<IfModule mod_setenvif.c>
+    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 4. Jangan simpan balasan API di cache
+# ---------------------------------------------------------------------
+# Data stok berubah setiap menit. Balasan yang di-cache proxy membuat
+# petugas melihat angka kemarin tanpa tahu itu bukan angka terbaru.
+<IfModule mod_headers.c>
+    Header always set Cache-Control "no-store, no-cache, must-revalidate"
+    Header always set X-Content-Type-Options "nosniff"
+</IfModule>

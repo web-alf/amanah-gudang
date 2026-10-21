@@ -1,0 +1,14 @@
+# Folder unduhan APK aplikasi Android. Hanya berkas .apk yang dilayani;
+# dikirim sebagai lampiran supaya peramban ponsel langsung mengunduh,
+# bukan mencoba menampilkannya.
+<IfModule mod_mime.c>
+    AddType application/vnd.android.package-archive .apk
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch "\.apk$">
+        Header set Content-Disposition "attachment; filename=Amanah.apk"
+    </FilesMatch>
+</IfModule>
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>

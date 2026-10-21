@@ -1,0 +1,149 @@
+# =====================================================================
+#  AMANAH — Aplikasi Manajemen Amanah & Hibah
+#  Konfigurasi keamanan Apache
+#
+#  Berkas ini WAJIB ikut terunggah. Tanpa ini, berkas .sql di folder
+#  aplikasi bisa diunduh siapa pun yang tahu alamatnya — termasuk
+#  instal_database.sql beserta seluruh hash password di dalamnya.
+#
+#  ---------------------------------------------------------------------
+#  DITULIS DEFENSIF UNTUK HOSTING BERSAMA
+#  ---------------------------------------------------------------------
+#  Setiap arahan di sini dibungkus <IfModule>. Alasannya: di hosting
+#  bersama, satu arahan yang tidak dikenali membuat Apache membalas
+#  HTTP 500 untuk SELURUH folder — dan halaman galatnya tidak menyebut
+#  penyebabnya, jadi pemiliknya hanya melihat "Halaman ini tidak
+#  berfungsi" tanpa petunjuk apa pun.
+#
+#  Yang dulu tidak terlindungi dan berisiko:
+#    - Require all denied/granted  → sintaks Apache 2.4; di Apache 2.2
+#      arahan ini tidak dikenal
+#    - Options -Indexes            → 500 bila AllowOverride hosting
+#      tidak mengizinkan Options
+#
+#  Keduanya sekarang dibungkus, jadi kalau modulnya tidak ada arahannya
+#  dilewati — bukan menjatuhkan seluruh situs.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 1. Blokir unduhan berkas sensitif
+# ---------------------------------------------------------------------
+# Apache 2.4 (mod_authz_core) — hampir semua hosting modern.
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(sql|gz|txt|md|log|bak|ini|yml|yaml|json|env|dist|old|orig|sample)$">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "^_">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "^(config\.php|config\.local\.php|config\.local\.php\.contoh|setup_password\.php|\.htaccess|\.git.*)$">
+        Require all denied
+    </FilesMatch>
+    # Alat diagnostik yang sudah DIHAPUS dari kode. Namanya tetap diblokir
+    # di sini supaya salinan lama yang masih tertinggal di hosting ikut
+    # mati begitu .htaccess ini diunggah — cek.php membocorkan isi error
+    # log tanpa login, versi.php menyebut versi PHP & OS.
+    <FilesMatch "^(cek\.php|versi\.php|cek_toko\.php|reset_data\.php|data_contoh\.php)$">
+        Require all denied
+    </FilesMatch>
+    # Aset statis memang harus bisa diakses.
+    <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|webp|woff2?|ico)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
+
+# Apache 2.2 (mod_authz_host) — cadangan untuk hosting lama.
+<IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+        <FilesMatch "\.(sql|gz|txt|md|log|bak|ini|yml|yaml|json|env|dist|old|orig|sample)$">
+            Order allow,deny
+            Deny from all
+        </FilesMatch>
+        <FilesMatch "^_">
+            Order allow,deny
+            Deny from all
+        </FilesMatch>
+        <FilesMatch "^(config\.php|config\.local\.php|config\.local\.php\.contoh|setup_password\.php|\.htaccess|\.git.*)$">
+            Order allow,deny
+            Deny from all
+        </FilesMatch>
+        <FilesMatch "^(cek\.php|versi\.php|cek_toko\.php|reset_data\.php|data_contoh\.php)$">
+            Order allow,deny
+            Deny from all
+        </FilesMatch>
+        <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|webp|woff2?|ico)$">
+            Order deny,allow
+            Allow from all
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 1b. URL tanpa akhiran .php
+# ---------------------------------------------------------------------
+# /barang masih memanggil barang.php yang sama — dua alamat sama-sama
+# jalan, jadi tautan lama (<a href="barang.php">) di kode TIDAK perlu
+# diubah. Dibungkus mod_rewrite: kalau modulnya tidak ada, blok ini
+# dilewati dan alamat lama (dengan .php) tetap bekerja seperti biasa.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^.]+)$ $1.php [L]
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 2. Matikan daftar isi folder
+# ---------------------------------------------------------------------
+# Dibungkus mod_autoindex: sebagian hosting tidak mengizinkan arahan
+# Options di .htaccess, dan itu balasannya 500 — bukan diabaikan.
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 3. Halaman awal
+# ---------------------------------------------------------------------
+# index.php lebih dulu: membuka alamat pangkal seharusnya memperlihatkan
+# perkenalan sistemnya, bukan langsung menodong formulir masuk kepada
+# orang yang belum tahu ini aplikasi apa.
+<IfModule mod_dir.c>
+    DirectoryIndex index.php login.php
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 4. Header keamanan
+# ---------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=()"
+    Header unset X-Powered-By
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 5. Pengaturan PHP
+# ---------------------------------------------------------------------
+# HANYA berlaku bila PHP dijalankan sebagai modul Apache. Di hosting
+# bersama PHP biasanya berjalan sebagai FastCGI/LiteSpeed, dan di sana
+# php_flag/php_value di .htaccess justru memicu 500. Karena itu blok ini
+# tetap dibungkus, dan config.php sudah mengatur hal yang sama dari
+# dalam PHP — jadi tidak ada yang hilang bila blok ini dilewati.
+<IfModule mod_php.c>
+    php_flag  display_errors        Off
+    php_flag  log_errors            On
+    php_flag  session.cookie_httponly On
+    php_value upload_max_filesize   "8M"
+    php_value post_max_size         "10M"
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 6. Cache aset statis
+# ---------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType text/css               "access plus 30 days"
+    ExpiresByType image/png              "access plus 30 days"
+</IfModule>

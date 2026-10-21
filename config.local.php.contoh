@@ -1,0 +1,27 @@
+<?php
+/**
+ * AMANAH — Rahasia milik server INI.
+ *
+ * Salin berkas ini menjadi `config.local.php`, lalu isi nilainya.
+ * `config.local.php` TIDAK boleh diunggah ke server lain dan tidak boleh
+ * masuk repositori — tiap server punya miliknya sendiri.
+ */
+
+// ---- Basis data ------------------------------------------------------
+$DB_HOST = '127.0.0.1';
+$DB_PORT = '3306';
+$DB_NAME = 'gudang_bayi';
+$DB_USER = 'root';          // di hosting: pengguna khusus, BUKAN root
+$DB_PASS = '';
+
+// ---- Kunci tanda tangan token aplikasi Android ------------------------
+// String acak panjang (≥ 32 karakter). Bila dikosongkan, sistem membuat
+// kunci acak sendiri dan menyimpannya di sesi/.kunci_jwt — itu sudah
+// aman, tapi kunci yang ditulis di sini lebih mudah dicadangkan bersama
+// berkas ini. Mengganti kunci berarti semua ponsel harus masuk ulang.
+$JWT_SECRET = '';
+
+// ---- Kunci halaman cek_sistem.php -------------------------------------
+// Kosong = halaman pemeriksa sistem tidak bisa dibuka sama sekali.
+// Isi hanya saat sedang memasang di hosting, lalu kosongkan lagi.
+$KUNCI_CEK = '';

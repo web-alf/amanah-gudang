@@ -1,0 +1,41 @@
+# Folder ini menampung berkas yang DIUNGGAH pengguna. Berkas unggahan tidak
+# boleh pernah dieksekusi: satu berkas .php yang lolos ke sini sama dengan
+# memberi orang luar hak menjalankan kode di server.
+#
+# Dibungkus <IfModule> karena hosting bersama sering tidak memuat semua modul,
+# dan direktif tak dikenal membuat seluruh direktori balas HTTP 500.
+
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>
+
+# LiteSpeed/cPanel memakai handler, bukan mod_php. Pemetaan handler-nya
+# dicabut supaya .php di sini diperlakukan sebagai berkas biasa.
+<IfModule mod_mime.c>
+  RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+  RemoveType    .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+  AddType text/plain .php .phtml .phar
+</IfModule>
+
+# Lapis terakhir: tolak permintaan ke berkas yang bisa dieksekusi.
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|htaccess)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|htaccess)$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>

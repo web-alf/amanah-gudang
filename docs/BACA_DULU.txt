@@ -1,0 +1,37 @@
+UNGGAH "REVISI TIM GUDANG + KARDUS + CADANGAN + REVISI 18 OKT" — Oktober 2026
+==========================================================================
+Folder ini SUPERSET dari folder unggah sebelumnya: unggah semuanya lagi
+dari sini (aman menimpa).
+
+URUTAN
+1. BACKUP DATABASE dulu (Pengaturan > Cadangan Data > Buat cadangan sekarang,
+   lalu unduh; atau phpMyAdmin > Export > SQL). Simpan berkasnya.
+2. Unggah SELURUH isi folder ini ke folder aplikasi di hosting (timpa berkas
+   lama). Susunan sudah sama: api/ ke api/, assets/ ke assets/, db/ ke db/,
+   docs/ ke docs/, cadangan_berkas/ ke cadangan_berkas/.
+   config.local.php TIDAK ikut dan jangan ditimpa.
+3. HAPUS di hosting (sisa rancangan lama, tidak dipakai lagi):
+     kardus_form.php, kardus_batch.php, assets/kardus.js, folder cadangan/
+     BACA_DULU.txt di folder utama (sudah pindah ke docs/BACA_DULU.txt)
+     berkas .md lama di folder utama (sudah pindah ke docs/):
+       ANALISIS_KEKURANGAN.md, CATATAN_*.md, DAFTAR_UNGGAH.md,
+       DELTA_UNGGAH_LANJUTAN.md, PANDUAN_*.md, SPESIFIKASI_HOSTING.md
+     berkas kunci Google *.json bila pernah diunggah ke folder utama
+     (sesi/drive-sa.json juga tidak dipakai lagi).
+4. Pastikan folder cadangan_berkas/ ada dan bisa ditulis PHP (chmod 755/775).
+5. Pengaturan > Migrasi Basis Data, jalankan yang belum terpasang, urut:
+     migrasi_tim_gudang_01_jenis_donasi_masuk.sql
+     migrasi_tim_gudang_02_kondisi_rusak_expired.sql
+     migrasi_tim_gudang_03_kardus.sql
+     migrasi_tim_gudang_04_keperluan_keluar.sql      <- BARU 18 Okt
+6. Pengaturan > Cadangan Data: jadwal otomatis (cron cPanel Once Per Hour)
+   dan Google Drive (Hubungkan akun Google; Redirect URI di Google Cloud =
+   https://kelolaaset.space/cadangan_google.php).
+7. Muat ulang halaman (Ctrl+F5) di komputer petugas.
+
+PEMBATALAN: db/rollback/rollback_tim_gudang_01..04_*.sql (jalankan manual
+lewat phpMyAdmin). Baca syarat di dalam tiap berkas.
+
+RINCIAN & panduan: docs/CATATAN_REVISI_2026-10-18.md,
+docs/CATATAN_KARDUS_DAN_CADANGAN_2026-10.md, docs/CATATAN_REVISI_TIM_GUDANG_2026-10.md,
+dan Booklet Alur AMANAH (PDF) di paket serah terima.

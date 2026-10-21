@@ -1,0 +1,8 @@
+/* Poppins — huruf yang sama dengan aplikasi Android AMANAH, disajikan dari
+   server sendiri (bukan Google Fonts): CSP hanya mengizinkan sumber 'self',
+   dan gudang yang koneksinya buruk tidak boleh menunggu server pihak ketiga
+   hanya untuk sebuah huruf. Berkasnya salinan dari app/src/main/res/font. */
+@font-face{ font-family:"Poppins"; font-style:normal; font-weight:400; font-display:swap; src:url("fonts/poppins_regular.ttf") format("truetype") }
+@font-face{ font-family:"Poppins"; font-style:normal; font-weight:500; font-display:swap; src:url("fonts/poppins_medium.ttf") format("truetype") }
+@font-face{ font-family:"Poppins"; font-style:normal; font-weight:600; font-display:swap; src:url("fonts/poppins_semibold.ttf") format("truetype") }
+@font-face{ font-family:"Poppins"; font-style:normal; font-weight:700; font-display:swap; src:url("fonts/poppins_bold.ttf") format("truetype") }
