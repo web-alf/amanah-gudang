@@ -74,7 +74,9 @@ if (!headers_sent()) {
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: camera=(self), microphone=(), geolocation=()');
     header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; "
-         . "style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; "
+         . "style-src 'self' 'unsafe-inline' https://api.fontshare.com https://fonts.googleapis.com; "
+         . "img-src 'self' data: blob:; "
+         . "font-src 'self' data: https://cdn.fontshare.com https://fonts.gstatic.com; "
          . "connect-src 'self'; media-src 'self' blob:; worker-src 'self' blob:; "
          . "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
     if (koneksi_https()) {

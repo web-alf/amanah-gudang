@@ -52,7 +52,7 @@
      Warna dasar #070B17 dan ungu #7C3AED dipertahankan — itu warna
      lembaga, bukan keputusan saya.
      ------------------------------------------------------------------- */
-  --bg:#F7F8FC;
+  --bg:#FAFAFA;
   --surface-3:#EFF2F9;
   --surface:#FFFFFF;
   --surface-2:#FFFFFF;
@@ -61,29 +61,31 @@
   /* Garis ikut bernada sama dengan permukaannya. Putih murni di atas
      latar kebiruan terbaca kotor — mata menangkapnya sebagai debu, bukan
      sebagai batas yang disengaja. */
-  --border:#E2E7F0;
+  --border:#E8E8EC;
   --border-kuat:#CBD3E2;
 
   /* Teks */
-  --text:#0B1020;
-  --text-2:#39415A;
-  --muted:#5A6478;
-  --muted-2:#8A93A6;
+  --text:#0A0A0A;
+  --text-2:#6B6B6B;
+  --muted:#9C9C9C;
+  --muted-2:#B5B5B5;
 
-  /* Tindakan utama */
-  --primary:#2563EB;
-  --primary-2:#3B82F6;
-  --primary-lembut:rgba(37,99,235,.12);
-  --primary-grad:#2563EB;   /* rata — dulu gradien, tapi tombol utama tidak perlu dihias */
+  /* Tindakan utama — indigo Genesis, dipertahankan hanya untuk elemen
+     interaktif (CTA, link, fokus) sesuai DESIGN.md. --info/--blue/--accent
+     SENGAJA tidak ikut berubah: itu warna makna/dekorasi, bukan tombol. */
+  --primary:#6366F1;
+  --primary-2:#4F46E5;   /* hover — lebih gelap, sesuai arahan Genesis */
+  --primary-lembut:rgba(99,102,241,.12);
+  --primary-grad:#6366F1;   /* rata — dulu gradien, tapi tombol utama tidak perlu dihias */
 
   /* Makna — warna adalah data, bukan dekorasi */
   --accent:#0891B2;        /* persediaan / inventory */
   --info:#2563EB;
   --blue:#2563EB;
-  --green:#059669;
-  --amber:#C2740A;
-  --orange:#C2740A;
-  --red:#DC2626;
+  --green:#10B981;
+  --amber:#F59E0B;
+  --orange:#F59E0B;
+  --red:#EF4444;
 
   /* -------------------------------------------------------------------
      WARNA TEKS STATUS — disetarakan terangnya.
@@ -102,7 +104,7 @@
   --red-t:#B01818;
   --info-t:#1D4ED8;
   --accent-t:#0C6178;
-  --primary-t:#1D4ED8;
+  --primary-t:#4338CA;
 
   /* Bayangan — berlapis, bukan satu sapuan.
      Bayangan tunggal terlihat seperti stiker. Dua lapis (satu rapat untuk
@@ -111,7 +113,7 @@
   --shadow-1:0 1px 2px rgba(15,23,42,.06);
   --shadow-2:0 1px 2px rgba(15,23,42,.06), 0 6px 16px -6px rgba(15,23,42,.14);
   --shadow-3:0 2px 6px rgba(15,23,42,.08), 0 16px 40px -14px rgba(15,23,42,.22);
-  --glow:0 0 0 1px rgba(37,99,235,.2);
+  --glow:0 0 0 1px rgba(99,102,241,.2);
   /* Garis cahaya 1px di tepi atas permukaan. Di tema gelap inilah yang
      membedakan "kotak abu" dari "panel kaca" — meniru cahaya yang jatuh
      dari atas. Tidak dipakai di tema terang karena di sana justru kotor. */
@@ -119,7 +121,7 @@
   --cincin:0 0 0 3px var(--primary-lembut);
 
   /* Bentuk */
-  --r-sm:8px; --r:12px; --r-lg:16px; --r-xl:20px;
+  --r-sm:6px; --r:12px; --r-lg:8px; --r-xl:12px;
   /* Alias yang sudah lama dipakai di halaman publik (alur, donatur, gudang)
      tapi tidak pernah didefinisikan — garis kartunya jatuh ke warna teks
      dan lengkungnya hilang. Diikat ke token induknya supaya ikut tema. */
@@ -153,10 +155,10 @@
      tetap jalan saat gudang offline. Di komputer lama yang belum punya,
      susunannya turun sendiri ke Segoe UI seperti semula.
      ------------------------------------------------------------------- */
-  --f-display:"Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
-  --f-text:"Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
-  --f-small:"Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
-  --f-mono:"Cascadia Mono",Consolas,ui-monospace,"SF Mono",monospace;
+  --f-display:"General Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-text:"DM Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-small:"DM Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono","Cascadia Mono",Consolas,ui-monospace,"SF Mono",monospace;
 
   /* Tangga ukuran huruf — menggantikan angka yang dulu dipilih sendiri
      per halaman (13.2px, 12.5px, 11.5px …). */
@@ -179,7 +181,7 @@ html[data-theme="dark"]{
   /* Palet gelap yang SAMA dengan aplikasi Android AMANAH (ui/theme/Color.kt):
      latar biru-tinta, permukaan berjenjang ±6 satuan, aksen biru. Sampai
      13 Sep 2026 web memakai ungu #7C3AED dan bawaan gelap, sementara ponsel
-     biru #2563EB dan bawaan terang — dua produk untuk satu lembaga. */
+     biru #6366F1 dan bawaan terang — dua produk untuk satu lembaga. */
   --bg:#0B1020;
   --surface-3:#10162A;
   --surface:#151B2E;
@@ -194,21 +196,21 @@ html[data-theme="dark"]{
   --muted:#94A3B8;
   --muted-2:#7B8AA6;
 
-  --primary:#3B82F6;
-  --primary-2:#60A5FA;
-  --primary-lembut:rgba(59,130,246,.16);
-  --primary-grad:#3B82F6;
+  --primary:#818CF8;
+  --primary-2:#A5B4FC;
+  --primary-lembut:rgba(129,140,248,.18);
+  --primary-grad:#818CF8;
 
   --accent:#06B6D4; --info:#3B82F6; --blue:#3B82F6;
   --green:#10B981; --amber:#F59E0B; --orange:#F59E0B; --red:#EF4444;
 
   --green-t:#35C892; --amber-t:#E8AE30; --red-t:#FF8B85;
-  --info-t:#7CB4FF;  --accent-t:#2BC3DC; --primary-t:#93C5FD;
+  --info-t:#7CB4FF;  --accent-t:#2BC3DC; --primary-t:#C7D2FE;
 
   --shadow-1:0 1px 2px rgba(0,0,0,.36);
   --shadow-2:0 1px 2px rgba(0,0,0,.3), 0 6px 18px -6px rgba(0,0,0,.5);
   --shadow-3:0 2px 6px rgba(0,0,0,.35), 0 16px 44px -14px rgba(0,0,0,.72);
-  --glow:0 0 0 1px rgba(59,130,246,.32);
+  --glow:0 0 0 1px rgba(129,140,248,.32);
   /* Garis cahaya 1px di tepi atas permukaan — hanya berarti di tema gelap. */
   --kilau:inset 0 1px 0 rgba(255,255,255,.045);
 }
@@ -250,7 +252,7 @@ a{color:inherit;text-decoration:none}
   outline:2px solid var(--primary-2);outline-offset:2px;
   box-shadow:0 0 0 4px var(--primary-lembut)}
 
-::selection{background:rgba(37,99,235,.32);color:var(--text)}
+::selection{background:rgba(99,102,241,.32);color:var(--text)}
 
 /* Batang gulir ramping di seluruh aplikasi — bawaan Windows tebal dan
    abu terang, mencolok sekali di atas latar gelap. */
@@ -306,7 +308,7 @@ svg{flex-shrink:0}
   border-bottom:1px solid var(--border);flex-shrink:0}
 .brand .logo{width:38px;height:38px;border-radius:11px;flex-shrink:0;
   background:var(--primary-grad);display:grid;place-items:center;color:#fff;
-  box-shadow:0 3px 12px -3px rgba(37,99,235,.7)}
+  box-shadow:0 3px 12px -3px rgba(99,102,241,.7)}
 .brand .logo svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.85;
   stroke-linecap:round;stroke-linejoin:round}
 .brand b{font-family:var(--f-display);font-size:16px;font-weight:700;letter-spacing:-.022em;
@@ -314,7 +316,7 @@ svg{flex-shrink:0}
 .brand span{font-size:10.5px;color:var(--muted-2);display:block;letter-spacing:.04em;
   text-transform:uppercase;font-weight:600}
 /* Warna merek berbeda per peran — pengguna langsung tahu portal mana */
-.sidebar[data-peran="supplier"] .logo{background:linear-gradient(135deg,#06B6D4,#2563EB);
+.sidebar[data-peran="supplier"] .logo{background:linear-gradient(135deg,#06B6D4,#6366F1);
   box-shadow:0 3px 12px -3px rgba(6,182,212,.6)}
 .sidebar[data-peran="toko"] .logo{background:linear-gradient(135deg,#10B981,#06B6D4);
   box-shadow:0 3px 12px -3px rgba(16,185,129,.6)}
@@ -347,7 +349,7 @@ html[data-theme="light"] .nav a:hover{background:var(--surface-3)}
    Latar saja terlalu samar di layar HP murah dengan sudut pandang miring —
    batang solid tetap terbaca meski warnanya pudar. */
 .nav a.active{background:var(--primary-lembut);
-  color:var(--text);font-weight:650;box-shadow:inset 0 0 0 1px rgba(37,99,235,.28)}
+  color:var(--text);font-weight:650;box-shadow:inset 0 0 0 1px rgba(99,102,241,.28)}
 .nav a.active::before{content:"";position:absolute;left:-10px;top:50%;
   transform:translateY(-50%);width:3px;height:19px;border-radius:0 3px 3px 0;
   background:var(--primary-2)}
@@ -436,7 +438,7 @@ html[data-nav="rapat"] .rail-btn svg{transform:rotate(180deg)}
 /* ---------- kartu bantuan di dasar sidebar ---------- */
 .sb-help{margin:10px;padding:13px;border-radius:var(--r);flex-shrink:0;
   background:var(--primary-lembut);
-  border:1px solid rgba(37,99,235,.26);display:flex;gap:11px;align-items:center;
+  border:1px solid rgba(99,102,241,.26);display:flex;gap:11px;align-items:center;
   transition:transform var(--t),box-shadow var(--t)}
 .sb-help:hover{transform:translateY(-1px);box-shadow:var(--shadow-2)}
 .sb-help svg{width:19px;height:19px;stroke:var(--primary-t);fill:none;stroke-width:1.85}
@@ -482,8 +484,8 @@ html[data-nav="rapat"] .rail-btn svg{transform:rotate(180deg)}
   stroke-linecap:round;stroke-linejoin:round}
 .icon-btn:hover{background:var(--surface-2);color:var(--text);border-color:var(--border-kuat)}
 /* Tombol scan — tindakan paling sering, jadi ditonjolkan & selalu tersedia */
-.icon-btn.scan{background:var(--primary-lembut);border-color:rgba(37,99,235,.3);color:var(--primary-t)}
-.icon-btn.scan:hover{background:rgba(37,99,235,.24);color:var(--primary-t)}
+.icon-btn.scan{background:var(--primary-lembut);border-color:rgba(99,102,241,.3);color:var(--primary-t)}
+.icon-btn.scan:hover{background:rgba(99,102,241,.24);color:var(--primary-t)}
 .icon-btn .dot{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;
   font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:10px;
   display:grid;place-items:center;padding:0 4px;border:2px solid var(--bg)}
@@ -506,7 +508,7 @@ html[data-nav="rapat"] .rail-btn svg{transform:rotate(180deg)}
    dari peta aplikasi. Sidebar jadi murni berisi tempat, bukan perintah. */
 .usermenu{position:relative}
 .usermenu>.userchip{cursor:pointer}
-.usermenu[data-buka="1"]>.userchip{border-color:rgba(37,99,235,.4);background:var(--surface-2)}
+.usermenu[data-buka="1"]>.userchip{border-color:rgba(99,102,241,.4);background:var(--surface-2)}
 .usermenu .um-panel{position:absolute;top:calc(100% + 9px);right:0;min-width:236px;z-index:60;
   background:var(--surface-2);border:1px solid var(--border-kuat);border-radius:var(--r-lg);
   box-shadow:var(--shadow-3);padding:7px;display:none}
@@ -533,7 +535,7 @@ html[data-theme="light"] .usermenu .um-panel a:hover{background:var(--surface-3)
 .profil-kepala{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
 .profil-av{width:76px;height:76px;border-radius:22px;flex-shrink:0;display:grid;place-items:center;
   background:var(--primary-grad);color:#fff;font-size:27px;font-weight:750;letter-spacing:-.02em;
-  box-shadow:0 8px 26px -8px rgba(37,99,235,.75)}
+  box-shadow:0 8px 26px -8px rgba(99,102,241,.75)}
 .profil-id{min-width:0;flex:1}
 .profil-id h3{font-size:var(--h-xl);font-weight:700;letter-spacing:-.03em;margin-bottom:3px}
 .row-tag{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
@@ -619,7 +621,7 @@ tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--primary-2)}
 /* Ruang di dalam kartu dilonggarkan. Kelapangan adalah salah satu tanda
    paling jujur dari antarmuka mahal — ia menyiratkan bahwa ruang layar
    cukup, tidak perlu dijejali. */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
   padding:22px;box-shadow:var(--shadow-1),var(--kilau);position:relative}
 .card h3{font-size:var(--h-md);font-weight:660;letter-spacing:-.018em;margin-bottom:3px;
   line-height:1.35}
@@ -725,13 +727,15 @@ a.card:active{transform:translateY(0)}
   justify-content:center;gap:7px;line-height:1.3;white-space:nowrap;min-height:38px;
   transition:background var(--t-cepat),border-color var(--t-cepat),color var(--t-cepat),
              box-shadow var(--t),transform var(--t-cepat)}
+/* Semua tombol naik 1px saat diarahkan — bukan cuma yang primary. */
+.btn:hover:not(:disabled){transform:translateY(-1px)}
 .btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.85;
   stroke-linecap:round;stroke-linejoin:round}
 .btn-primary{background:var(--primary-grad);color:#fff;
-  box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px -3px rgba(37,99,235,.6),
+  box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px -3px rgba(99,102,241,.6),
              inset 0 1px 0 rgba(255,255,255,.14)}
 .btn-primary:hover{background:var(--primary-2);
-  box-shadow:0 2px 4px rgba(0,0,0,.3),0 6px 18px -4px rgba(37,99,235,.7),
+  box-shadow:0 2px 4px rgba(0,0,0,.3),0 6px 18px -4px rgba(99,102,241,.7),
              inset 0 1px 0 rgba(255,255,255,.18);transform:translateY(-1px)}
 .btn-ghost{background:var(--surface-3);border-color:var(--border-kuat);color:var(--text-2)}
 .btn-ghost:hover{background:var(--surface-2);color:var(--text);border-color:var(--muted-2)}
@@ -739,7 +743,7 @@ a.card:active{transform:translateY(0)}
 .btn-red:hover{background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.5)}
 .btn-green{background:rgba(16,185,129,.13);color:var(--green-t);border-color:rgba(16,185,129,.3)}
 .btn-green:hover{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.48)}
-.btn-sm{padding:6px 11px;font-size:var(--h-sm);border-radius:7px;min-height:31px}
+.btn-sm{padding:6px 11px;font-size:var(--h-sm);border-radius:6px;min-height:32px}
 .btn-sm svg{width:13px;height:13px}
 /* Ditekan: turun kembali ke posisi diam. Umpan balik sentuh yang membuat
    tombol terasa benar-benar tertekan, bukan sekadar berganti warna. */
@@ -759,7 +763,7 @@ a.card:active{transform:translateY(0)}
 .qa a{display:flex;align-items:center;gap:11px;background:var(--surface-3);
   border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;font-size:13px;
   font-weight:600;color:var(--text-2);transition:var(--t)}
-.qa a:hover{background:var(--surface-2);color:var(--text);border-color:rgba(37,99,235,.3);
+.qa a:hover{background:var(--surface-2);color:var(--text);border-color:rgba(99,102,241,.3);
   transform:translateY(-2px);box-shadow:var(--shadow-2)}
 .qa-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
   background:color-mix(in srgb,var(--qc,var(--primary)) 15%,transparent);
@@ -799,7 +803,7 @@ a.card:active{transform:translateY(0)}
 .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(262px,1fr));gap:14px}
 .set-grid a.card{padding:17px 18px;display:flex;gap:13px;align-items:flex-start}
 .set-ic{width:40px;height:40px;border-radius:11px;flex-shrink:0;display:grid;place-items:center;
-  background:var(--primary-lembut);border:1px solid rgba(37,99,235,.24)}
+  background:var(--primary-lembut);border:1px solid rgba(99,102,241,.24)}
 .set-ic svg{width:19px;height:19px;stroke:var(--primary-t);fill:none;stroke-width:1.85;
   stroke-linecap:round;stroke-linejoin:round}
 .set-tx{min-width:0;flex:1}
@@ -891,7 +895,7 @@ html[data-theme="light"] .imp-kol td:first-child{color:var(--primary)}
    menautkan ke layar yang menyelesaikannya.
    ===================================================================== */
 .mulai{background:var(--surface);
-  border-color:rgba(37,99,235,.28);margin-bottom:18px}
+  border-color:rgba(99,102,241,.28);margin-bottom:18px}
 .mulai-kepala{display:flex;gap:17px;align-items:center;margin-bottom:17px}
 .mulai-kepala h3{margin-bottom:3px}
 
@@ -905,7 +909,7 @@ html[data-theme="light"] .imp-kol td:first-child{color:var(--primary)}
 .mulai-daftar{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:9px}
 .mulai-item{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:var(--r);
   background:var(--surface-3);border:1px solid var(--border);transition:var(--t)}
-.mulai-item:hover{border-color:rgba(37,99,235,.4);transform:translateY(-2px);box-shadow:var(--shadow-2)}
+.mulai-item:hover{border-color:rgba(99,102,241,.4);transform:translateY(-2px);box-shadow:var(--shadow-2)}
 .mulai-tanda{width:23px;height:23px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;
   border:2px solid var(--border-kuat)}
 .mulai-tanda svg{width:12px;height:12px;stroke:#041210;stroke-width:3.2;fill:none;
@@ -928,7 +932,7 @@ html[data-theme="light"] .imp-kol td:first-child{color:var(--primary)}
   font-size:12.5px;font-weight:600;color:var(--text-2);background:var(--surface-3);
   border:1px solid var(--border);transition:var(--t)}
 .saring a:hover{border-color:var(--border-kuat);color:var(--text)}
-.saring a.on{background:var(--primary-lembut);border-color:rgba(37,99,235,.4);
+.saring a.on{background:var(--primary-lembut);border-color:rgba(99,102,241,.4);
   color:var(--primary-t);font-weight:680}
 .saring a .n{font-size:11px;font-weight:700;background:rgba(255,255,255,.07);
   padding:1px 6px;border-radius:20px;color:var(--muted)}
@@ -1043,14 +1047,14 @@ table.rapat td{padding:8px 11px}
 /* =====================================================================
    14. BADGE
    ===================================================================== */
-.tag{display:inline-flex;align-items:center;gap:5px;padding:3.5px 9.5px;border-radius:7px;
-  font-size:11.2px;font-weight:640;white-space:nowrap;letter-spacing:.005em;line-height:1.45}
+.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:9999px;
+  font-size:12px;font-weight:640;white-space:nowrap;letter-spacing:.005em;line-height:1.45}
 .t-green{background:rgba(16,185,129,.14);color:var(--green-t);border:1px solid rgba(16,185,129,.28)}
 .t-amber{background:rgba(245,158,11,.14);color:var(--amber-t);border:1px solid rgba(245,158,11,.28)}
 .t-orange{background:rgba(245,158,11,.14);color:var(--amber-t);border:1px solid rgba(245,158,11,.28)}
 .t-red{background:rgba(239,68,68,.14);color:var(--red-t);border:1px solid rgba(239,68,68,.28)}
 .t-blue{background:rgba(6,182,212,.14);color:var(--accent-t);border:1px solid rgba(6,182,212,.28)}
-.t-purple{background:rgba(37,99,235,.16);color:var(--primary-t);border:1px solid rgba(37,99,235,.3)}
+.t-purple{background:rgba(99,102,241,.16);color:var(--primary-t);border:1px solid rgba(99,102,241,.3)}
 .t-gray{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
 html[data-theme="light"] .t-gray{background:var(--surface-3)}
 .thumb{width:32px;height:32px;border-radius:9px;background:var(--surface-3);
@@ -1079,7 +1083,7 @@ html[data-theme="light"] .t-gray{background:var(--surface-3)}
 .step .n svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:3}
 .step .s.done .n{background:var(--green);border-color:var(--green);color:#041210}
 .step .s.now .n{background:var(--primary-grad);border-color:var(--primary-2);color:#fff;
-  box-shadow:var(--glow),0 4px 14px -4px rgba(37,99,235,.7)}
+  box-shadow:var(--glow),0 4px 14px -4px rgba(99,102,241,.7)}
 .step .s small{font-size:12px;color:var(--muted);white-space:nowrap}
 .step .s.now small{color:var(--text);font-weight:650}
 .step .bar{width:28px;height:1px;background:var(--border-kuat);margin:0 9px;flex-shrink:0}
@@ -1228,7 +1232,7 @@ label:has(>input[type=checkbox]),label:has(>input[type=radio]){
 .empty{text-align:center;color:var(--muted);padding:34px 16px;font-size:13px}
 .empty-state{text-align:center;padding:40px 20px}
 .empty-state .ic{width:58px;height:58px;margin:0 auto 16px;border-radius:16px;display:grid;
-  place-items:center;background:var(--primary-lembut);border:1px solid rgba(37,99,235,.24)}
+  place-items:center;background:var(--primary-lembut);border:1px solid rgba(99,102,241,.24)}
 .empty-state .ic svg{width:27px;height:27px;stroke:var(--primary-t);fill:none;stroke-width:1.7;
   stroke-linecap:round;stroke-linejoin:round}
 .empty-state b{font-family:var(--f-display);display:block;font-size:var(--h-lg);font-weight:670;letter-spacing:-.02em;margin-bottom:6px}
@@ -1567,7 +1571,7 @@ dialog.modal::backdrop{background:rgba(3,7,18,.7);backdrop-filter:blur(3px)}
 .br-nav .merek{display:flex;align-items:center;gap:11px;font-family:var(--f-display)}
 .br-nav .merek .logo{width:36px;height:36px;border-radius:11px;flex-shrink:0;
   background:var(--primary);display:grid;place-items:center;
-  box-shadow:0 3px 12px -3px rgba(37,99,235,.7)}
+  box-shadow:0 3px 12px -3px rgba(99,102,241,.7)}
 .br-nav .merek .logo svg{width:19px;height:19px;stroke:#fff;fill:none;stroke-width:1.85;
   stroke-linecap:round;stroke-linejoin:round}
 .br-nav .merek b{font-size:16px;font-weight:700;letter-spacing:-.022em;display:block;line-height:1.2}
@@ -1581,9 +1585,18 @@ dialog.modal::backdrop{background:rgba(3,7,18,.7);backdrop-filter:blur(3px)}
 @media(max-width:760px){ .br-nav .tautan a.sembunyi-hp{display:none} }
 
 /* ---------- hero ---------- */
-.br-hero{padding:76px 0 64px;text-align:center;position:relative}
+/* Latar belakang tipis — bukan ilustrasi, hanya sapuan warna supaya hero
+   tidak rata datar seperti kartu di bawahnya. Tiga warna diambil dari
+   palet yang sudah dipakai di rantai barang, bukan warna baru. */
+.br-hero{padding:76px 0 64px;text-align:center;position:relative;overflow:hidden}
+.br-hero::before{content:'';position:absolute;inset:-20% -10% auto -10%;height:480px;
+  pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(38% 55% at 22% 20%,color-mix(in srgb,var(--primary) 16%,transparent),transparent 70%),
+    radial-gradient(32% 50% at 78% 10%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 70%),
+    radial-gradient(30% 45% at 50% 55%,color-mix(in srgb,var(--green) 9%,transparent),transparent 70%)}
 .br-lencana{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:30px;
-  background:var(--primary-lembut);border:1px solid rgba(37,99,235,.3);
+  background:var(--primary-lembut);border:1px solid rgba(99,102,241,.3);
   color:var(--primary-t);font-size:12.2px;font-weight:650;margin-bottom:22px}
 .br-lencana svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
 .br-hero h1{font-family:var(--f-display);font-size:clamp(29px,5.2vw,50px);font-weight:730;
@@ -1619,7 +1632,10 @@ dialog.modal::backdrop{background:rgba(3,7,18,.7);backdrop-filter:blur(3px)}
 }
 
 /* ---------- bagian ---------- */
+/* Genap/ganjil diberi latar sedikit berbeda — ritme halaman, bukan warna
+   baru. Tanpa ini tiap bagian menyatu jadi satu blok panjang. */
 .br-seksi{padding:64px 0;border-top:1px solid var(--border)}
+.br-seksi:nth-of-type(even){background:var(--surface-3)}
 .br-kepala{text-align:center;max-width:64ch;margin:0 auto 38px}
 .br-kepala h2{font-family:var(--f-display);font-size:clamp(22px,3vw,32px);font-weight:710;
   letter-spacing:-.032em;line-height:1.18;margin-bottom:12px}

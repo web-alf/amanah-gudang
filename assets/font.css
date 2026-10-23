@@ -1,8 +1,8 @@
-/* Poppins — huruf yang sama dengan aplikasi Android AMANAH, disajikan dari
-   server sendiri (bukan Google Fonts): CSP hanya mengizinkan sumber 'self',
-   dan gudang yang koneksinya buruk tidak boleh menunggu server pihak ketiga
-   hanya untuk sebuah huruf. Berkasnya salinan dari app/src/main/res/font. */
-@font-face{ font-family:"Poppins"; font-style:normal; font-weight:400; font-display:swap; src:url("fonts/poppins_regular.ttf") format("truetype") }
-@font-face{ font-family:"Poppins"; font-style:normal; font-weight:500; font-display:swap; src:url("fonts/poppins_medium.ttf") format("truetype") }
-@font-face{ font-family:"Poppins"; font-style:normal; font-weight:600; font-display:swap; src:url("fonts/poppins_semibold.ttf") format("truetype") }
-@font-face{ font-family:"Poppins"; font-style:normal; font-weight:700; font-display:swap; src:url("fonts/poppins_bold.ttf") format("truetype") }
+/* Genesis design system — General Sans (judul) dari Fontshare, DM Sans
+   (isi) & JetBrains Mono (kode) dari Google Fonts. Ganti dari Poppins
+   self-hosted: perlu CDN pihak ketiga, jadi CSP di auth.php dilonggarkan
+   untuk kedua domain ini. Gudang offline akan jatuh ke fallback system-ui
+   di bawah — ponyatail: kalau ini jadi masalah nyata, self-host ulang
+   dari berkas .woff2 yang diunduh, hapus @import ini. */
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap");

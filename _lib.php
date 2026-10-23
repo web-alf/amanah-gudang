@@ -5293,9 +5293,9 @@ function halaman_403(string $pesan, ?string $kembali = null): void {
     $kembali = $kembali ?? (function_exists('beranda_peran') && !empty($_SESSION['user_id']) ? beranda_peran() : 'login.php');
     echo '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
        . '<title>403 · ' . e(APP_NAMA) . '</title></head>'
-       . '<body style="font-family:Poppins,Segoe UI,system-ui,sans-serif;background:#F7F8FC;color:#0B1020;margin:0;'
+       . '<body style="font-family:DM Sans,Segoe UI,system-ui,sans-serif;background:#FAFAFA;color:#0A0A0A;margin:0;'
        . 'min-height:100vh;display:grid;place-items:center;padding:24px">'
-       . '<div style="max-width:460px;background:#fff;border:1px solid #E2E7F0;border-radius:16px;padding:26px;line-height:1.7">'
+       . '<div style="max-width:460px;background:#fff;border:1px solid #E8E8EC;border-radius:12px;padding:26px;line-height:1.7">'
        . '<div style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#B01818">403 — TIDAK DIIZINKAN</div>'
        . '<p style="margin:8px 0 16px">' . e($pesan) . '</p>'
        . '<a href="' . e($kembali) . '" style="color:#2563EB;font-weight:600;text-decoration:none">← Kembali</a>'

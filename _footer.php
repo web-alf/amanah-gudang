@@ -119,7 +119,7 @@ function setTheme(t){
   var u = document.querySelector('#themeBtn use');
   if (u) u.setAttribute('href', t === 'dark' ? '#i-bulan' : '#i-matahari');
   var meta = document.querySelector('meta[name=theme-color]');
-  if (meta) meta.setAttribute('content', t === 'dark' ? '#0B1020' : '#F7F8FC');
+  if (meta) meta.setAttribute('content', t === 'dark' ? '#0B1020' : '#FAFAFA');
   document.cookie = 'amanah_theme=' + t + ';path=/;max-age=31536000;samesite=Lax';
 }
 function toggleTheme(){

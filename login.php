@@ -173,30 +173,30 @@ $csrf = csrf_token();
      ulang di sini — tapi nilainya PERSIS sama dengan assets/amanah.css
      supaya kesan pertama sudah sesuai dengan isi aplikasinya. */
   :root{
-    --bg:#F7F8FC; --surface:#FFFFFF; --surface-3:#EFF2F9;
-    --border:#E2E7F0; --border-kuat:#CBD3E2;
-    --text:#0B1020; --muted:#5A6478; --muted-2:#8A93A6;
-    --primary:#2563EB; --primary-2:#3B82F6; --red:#DC2626; --red-t:#B01818;
+    --bg:#FAFAFA; --surface:#FFFFFF; --surface-3:#EFF2F9;
+    --border:#E8E8EC; --border-kuat:#CBD3E2;
+    --text:#0A0A0A; --muted:#9C9C9C; --muted-2:#B5B5B5;
+    --primary:#6366F1; --primary-2:#4F46E5; --red:#EF4444; --red-t:#B01818;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Poppins","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  body{font-family:"DM Sans","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
     background:var(--bg);min-height:100vh;display:grid;place-items:center;padding:20px;
     color:var(--text);-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
-  /* Satu cahaya biru di belakang kartu — pengganti gradien penuh layar,
-     supaya latar tetap gelap dan kartunya yang jadi pusat perhatian. */
+  /* Satu cahaya indigo di belakang kartu — pengganti gradien penuh layar,
+     supaya latar tetap terang dan kartunya yang jadi pusat perhatian. */
   body::before{content:"";position:absolute;top:-30vh;left:50%;transform:translateX(-50%);
     width:min(900px,140vw);height:70vh;pointer-events:none;
-    background:radial-gradient(ellipse 50% 100% at 50% 0%,rgba(37,99,235,.28),transparent 70%)}
+    background:radial-gradient(ellipse 50% 100% at 50% 0%,rgba(99,102,241,.22),transparent 70%)}
   .card{position:relative;background:var(--surface);border:1px solid var(--border);
-    border-radius:20px;box-shadow:0 24px 60px -20px rgba(15,23,42,.22);
+    border-radius:12px;box-shadow:0 24px 60px -20px rgba(15,23,42,.14);
     width:100%;max-width:412px;padding:38px 32px;text-align:center}
-  .logo{width:64px;height:64px;border-radius:19px;margin:0 auto 16px;display:grid;place-items:center;
-    background:linear-gradient(135deg,#2563EB,#3B82F6);
-    box-shadow:0 8px 26px -8px rgba(37,99,235,.9)}
+  .logo{width:64px;height:64px;border-radius:14px;margin:0 auto 16px;display:grid;place-items:center;
+    background:var(--primary);
+    box-shadow:0 8px 26px -8px rgba(99,102,241,.9)}
   .logo svg{width:31px;height:31px;stroke:#fff;fill:none;stroke-width:1.9;
     stroke-linecap:round;stroke-linejoin:round}
-  h1{font-size:25px;font-weight:750;letter-spacing:-.02em;margin-bottom:4px}
-  .kepanjangan{color:#2563EB;font-size:11.5px;font-weight:650;letter-spacing:.02em;margin-bottom:4px}
+  h1{font-family:"General Sans","Segoe UI",system-ui,sans-serif;font-size:25px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
+  .kepanjangan{color:var(--primary);font-size:11.5px;font-weight:650;letter-spacing:.02em;margin-bottom:4px}
   .sub{color:var(--muted);font-size:12.5px;margin-bottom:26px}
   .field{text-align:left;margin-bottom:14px}
   label{display:block;font-size:11.5px;font-weight:680;color:var(--muted);margin-bottom:7px;
@@ -205,23 +205,23 @@ $csrf = csrf_token();
     font-size:14px;outline:none;background:var(--surface-3);color:var(--text);font-family:inherit;
     transition:border-color .18s,box-shadow .18s}
   input::placeholder{color:var(--muted-2)}
-  input:focus{border-color:var(--primary-2);box-shadow:0 0 0 3px rgba(37,99,235,.18)}
+  input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
   /* Centang "Ingat saya". label{display:block} di atas berlaku untuk
      SELURUH label di halaman ini, jadi baris ini harus mengembalikannya
      ke flex — kalau tidak, kotak centang dan teksnya bertumpuk. */
   label.ingat{display:flex;align-items:center;gap:9px;margin:2px 0 6px;
     font-size:13px;font-weight:500;color:var(--text);cursor:pointer;
     letter-spacing:normal;text-align:left}
-  label.ingat input{width:auto;padding:0;margin:0;accent-color:#2563EB;
+  label.ingat input{width:auto;padding:0;margin:0;accent-color:var(--primary);
     width:16px;height:16px;flex:none;cursor:pointer}
   .ingat-ket{font-size:11.5px;color:var(--muted);text-align:left;
     line-height:1.5;margin:0 0 14px}
-  .btn{width:100%;padding:12.5px;border:none;border-radius:10px;color:#fff;
-    background:linear-gradient(135deg,#2563EB,#3B82F6);
+  .btn{width:100%;padding:12.5px;border:none;border-radius:6px;color:#fff;
+    background:var(--primary);
     font-weight:650;font-size:15px;cursor:pointer;font-family:inherit;margin-top:6px;
-    box-shadow:0 4px 16px -4px rgba(37,99,235,.7);transition:filter .18s,transform .18s}
-  .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
-  .btn:focus-visible{outline:2px solid #2563EB;outline-offset:3px}
+    box-shadow:0 4px 16px -4px rgba(99,102,241,.5);transition:background .18s,transform .18s}
+  .btn:hover{background:var(--primary-2);transform:translateY(-1px)}
+  .btn:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
   .err{background:rgba(239,68,68,.12);color:var(--red-t);border:1px solid rgba(239,68,68,.32);
     border-radius:10px;padding:11px 13px;font-size:12.5px;margin-bottom:17px;
     text-align:left;line-height:1.55}
