@@ -32,6 +32,6 @@ URUTAN
 PEMBATALAN: db/rollback/rollback_tim_gudang_01..04_*.sql (jalankan manual
 lewat phpMyAdmin). Baca syarat di dalam tiap berkas.
 
-RINCIAN & panduan: docs/CATATAN_REVISI_2026-10-18.md,
-docs/CATATAN_KARDUS_DAN_CADANGAN_2026-10.md, docs/CATATAN_REVISI_TIM_GUDANG_2026-10.md,
+RINCIAN & panduan: docs/riwayat/CATATAN_REVISI_2026-10-18.md,
+docs/riwayat/CATATAN_KARDUS_DAN_CADANGAN_2026-10.md, docs/riwayat/CATATAN_REVISI_TIM_GUDANG_2026-10.md,
 dan Booklet Alur AMANAH (PDF) di paket serah terima.

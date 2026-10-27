@@ -20,7 +20,7 @@ Manager / FTP). Aplikasi Android ada di repositori terpisah (`C:\amanah_android`
 | `api/` | API JSON untuk aplikasi Android (JWT). |
 | `assets/` | CSS, JS, font, ikon. |
 | `db/` | `instal_database.sql` (skema awal), `migrasi_*.sql` (dijalankan dari halaman Migrasi), `rollback/` (pembatalan migrasi). Tertutup dari web. |
-| `docs/` | Catatan revisi, panduan instalasi & unggah, `BACA_DULU.txt`. Tertutup dari web. |
+| `docs/` | Dokumentasi — indeks di `docs/README.md`. `produk/` (PRD, spesifikasi migrasi), `operasional/` (instalasi, hosting), `riwayat/` (catatan revisi lama), `BACA_DULU.txt` (pembaruan hosting terakhir). Tertutup dari web. |
 | `cadangan_berkas/` | Berkas cadangan SQL (`.sql.gz`) — tertutup dari web, tidak ikut repo. |
 | `unggahan/` | Gambar unggahan (logo, foto barang, foto penerimaan) — tidak ikut repo. |
 | `sesi/` | Berkas sesi/kunci internal — tidak ikut repo. |
@@ -34,7 +34,7 @@ Manager / FTP). Aplikasi Android ada di repositori terpisah (`C:\amanah_android`
 2. Impor `db/instal_database.sql` ke database kosong.
 3. Masuk sebagai Super Admin › Pengaturan › Migrasi Basis Data › jalankan
    migrasi yang belum terpasang (urut nama).
-4. Rincian: `docs/PANDUAN_INSTALASI.md`. Pembaruan hosting: `docs/BACA_DULU.txt`.
+4. Rincian: `docs/operasional/PANDUAN_INSTALASI.md`. Pembaruan hosting: `docs/BACA_DULU.txt`.
 
 ## Alur utama
 

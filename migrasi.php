@@ -11,7 +11,7 @@
  * Aplikasi ini diunggah lewat FTP dan basis datanya dipegang lewat
  * phpMyAdmin. Selama ini tiap berkas migrasi dijalankan tangan, satu per
  * satu, dan tidak ada catatan mana yang sudah pernah dijalankan di
- * hosting — DAFTAR_UNGGAH.md berisi tebakan ("kalau sejak tanggal itu ada
+ * hosting — docs/riwayat/DAFTAR_UNGGAH.md berisi tebakan ("kalau sejak tanggal itu ada
  * yang sudah Anda unggah manual, daftar ini bisa memuat berkas yang
  * sebenarnya sudah sama"). Tabel pencatat menghapus tebakan itu.
  *
