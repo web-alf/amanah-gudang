@@ -8,7 +8,10 @@ Folder ini tertutup dari web (`.htaccess`). Mulai dari sini.
 | Instalasi baru / cara pakai | `operasional/PANDUAN_INSTALASI.md` |
 | Syarat server (PHP, ekstensi, cron, kuota) | `operasional/SPESIFIKASI_HOSTING.md` |
 | Apa & mengapa produk ini (visi, peran, modul) | `produk/PRD_AMANAH.md` |
+| **Peta API, halaman, dan lainnya** (daftar lengkap endpoint, menu, tabel DB) | `produk/PETA_API.md`, `produk/PETA_HALAMAN.md`, `produk/PETA_LAINNYA.md` |
 | Build ulang di stack lain (skema DB, algoritma FEFO/lock) | `produk/spesifikasi_migrasi/00_README.md` |
+| **Temuan keamanan** (apa yang salah & kenapa) | `riwayat/AUDIT_KEAMANAN_2026-10-29.md` |
+| **Rencana perbaikan keamanan** (langkah, uji, sprint) | `riwayat/RENCANA_PERBAIKAN_KEAMANAN_2026-10-29.md` |
 | Sejarah perubahan per rilis | `riwayat/` (lihat di bawah) |
 
 ## Struktur
@@ -19,6 +22,9 @@ docs/
 ├── BACA_DULU.txt             ← pembaruan hosting TERAKHIR (selalu diperbarui tiap rilis)
 ├── produk/                   ← sumber kebenaran produk; bila beda dengan kode, kode yang benar
 │   ├── PRD_AMANAH.md
+│   ├── PETA_API.md
+│   ├── PETA_HALAMAN.md
+│   ├── PETA_LAINNYA.md
 │   └── spesifikasi_migrasi/  ← 00_README, 01_PRD, 02_SKEMA_DB(.sql), 03_ALGORITMA_INTI
 ├── operasional/              ← dipakai saat pasang / pindah server
 │   ├── PANDUAN_INSTALASI.md
@@ -31,7 +37,10 @@ docs/
     ├── CATATAN_PERUBAHAN_2026-09-13.md       2026-09-13
     ├── CATATAN_REVISI_TIM_GUDANG_2026-10.md  2026-10
     ├── CATATAN_KARDUS_DAN_CADANGAN_2026-10.md 2026-10
-    └── CATATAN_REVISI_2026-10-18.md          2026-10-18
+    ├── CATATAN_REVISI_2026-10-18.md          2026-10-18
+    ├── ANALISIS_KEKURANGAN_2026-10-28.md     2026-10-28 (audit kelengkapan)
+    ├── AUDIT_KEAMANAN_2026-10-29.md          2026-10-29 (audit keamanan)
+    └── RENCANA_PERBAIKAN_KEAMANAN_2026-10-29.md 2026-10-29 (rencana implementasi)
 ```
 
 ## Aturan
@@ -40,4 +49,7 @@ docs/
 - **Ubah perilaku produk** → perbarui `produk/PRD_AMANAH.md` dan bagian terkait di `spesifikasi_migrasi/`.
 - **Ubah syarat server** → perbarui `operasional/`.
 - Berkas di `riwayat/` tidak disunting; catatan lama yang keliru dikoreksi di catatan baru.
+- **Temuan keamanan** ditulis berorientasi perbaikan — apa yang salah, di baris berapa,
+  dan patch-nya — tanpa resep eksploitasi, karena `docs/` ikut ter-commit dan proteksinya
+  hanya `.htaccess`.
 - Rujuk berkas dengan path relatif dari root repo (`docs/operasional/...`).

@@ -61,7 +61,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             $pdo->beginTransaction();
-            $in  = implode(',', array_keys($hitung));
+            $in = implode(',', array_keys($hitung));
+
+            // Kunci baris stok LEBIH DULU, urut — sama seperti jalur Barang
+            // Masuk/Keluar/Perpindahan. Tanpa ini, opname mengunci batch_barang
+            // dulu lalu stok lewat recalc_stok(), sementara jalur lain mengunci
+            // stok dulu lalu batch_barang — urutan terbalik berarti dua
+            // transaksi bisa saling menunggu selamanya (deadlock), yang terasa
+            // sebagai halaman "freeze" sampai innodb_lock_wait_timeout.
+            $stBid = $pdo->query("SELECT DISTINCT barang_id FROM batch_barang WHERE id IN ($in)");
+            kunci_stok($pdo, $stBid->fetchAll(PDO::FETCH_COLUMN));
+
             $stB = $pdo->query(
                 "SELECT bb.id, bb.barang_id, bb.qty_tersisa, bb.nomor_batch, b.nama AS barang
                  FROM batch_barang bb JOIN barang b ON b.id = bb.barang_id

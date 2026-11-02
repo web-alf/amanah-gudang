@@ -179,6 +179,15 @@ if ($method === 'POST') {
         // Batch dikunci lebih dulu, supaya angka sistem yang dibandingkan
         // tidak berubah oleh transaksi lain di tengah penyesuaian.
         $in = implode(',', array_map('intval', array_keys($hitung)));
+
+        // Kunci baris stok LEBIH DULU, urut — sama seperti kunci_stok() dipakai
+        // di jalur Barang Masuk/Keluar/Perpindahan. Tanpa ini urutan kuncinya
+        // terbalik (batch_barang dulu, stok belakangan lewat recalc_stok()),
+        // dan dua transaksi pada barang yang sama bisa saling menunggu tanpa
+        // batas — itulah yang terasa sebagai aplikasi "freeze".
+        $stBid = $pdo->query("SELECT DISTINCT barang_id FROM batch_barang WHERE id IN ($in)");
+        kunci_stok($pdo, $stBid->fetchAll(PDO::FETCH_COLUMN));
+
         $stB = $pdo->query(
             "SELECT bb.id, bb.barang_id, bb.qty_tersisa, bb.nomor_batch, b.nama AS barang
              FROM batch_barang bb JOIN barang b ON b.id = bb.barang_id

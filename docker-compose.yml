@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "8080:80"
+      - "8099:80"
     volumes:
       - ./:/var/www/html
       - ./docker/app.local.php:/var/www/html/config.local.php:ro

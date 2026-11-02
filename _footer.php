@@ -15,6 +15,19 @@
          di halamannya; CSS yang menyembunyikannya, dan bobotnya nihil. */ ?>
 <div class="lapis-modal" id="lapisModal" aria-hidden="true"></div>
 
+<?php /* Konfirmasi tutup formulir — pengganti confirm() bawaan peramban,
+         yang tampilannya tidak bisa diatur dan di HP memotong teksnya. */ ?>
+<dialog class="modal" id="dlgTutupForm" style="--mc:var(--amber)" aria-labelledby="dlgTutupJudul">
+  <div class="modal-h">
+    <span class="modal-ic"><svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div><b id="dlgTutupJudul">Tutup formulir?</b><small>Isian yang sudah diketik akan hilang.</small></div>
+  </div>
+  <div class="modal-f">
+    <button type="button" class="btn btn-ghost" data-tutup-jawab="0">Lanjut mengisi</button>
+    <button type="button" class="btn btn-red" data-tutup-jawab="1">Tutup &amp; buang</button>
+  </div>
+</dialog>
+
 <!-- Penanda versi dari filemtime() — lihat aset() di _header.php. -->
 <script src="<?= e(aset('assets/scan.js')) ?>"></script>
 <script>
@@ -439,14 +452,36 @@ function panelModeSunting(f){
 }
 
 /**
- * Boleh ditutup? Meminta konfirmasi bila ada yang sudah diketik.
- * Satu tempat, dipakai tombol tutup, klik di luar, dan Esc — supaya
- * ketiganya tidak bisa berbeda perilaku.
+ * Boleh ditutup? Meminta konfirmasi bila ada yang sudah diketik, lalu
+ * memanggil lanjut() HANYA bila disetujui. Satu tempat, dipakai tombol
+ * tutup, klik di luar, dan Esc — supaya ketiganya tidak bisa berbeda
+ * perilaku.
+ *
+ * Memakai <dialog> sendiri, bukan confirm(): kotak bawaan peramban tidak
+ * bisa diberi gaya, di HP memotong teksnya, dan tombolnya cuma OK/Batal
+ * yang tidak menjelaskan apa yang hilang.
  */
-function bolehTutup(f){
-  if (!f || !formTerisi(f)) { return true; }
-  return confirm('Tutup formulir? Isian yang sudah diketik akan hilang.');
+function bolehTutup(f, lanjut){
+  if (!f || !formTerisi(f)) { lanjut(); return; }
+  var d = document.getElementById('dlgTutupForm');
+  if (!d || !d.showModal) { if (confirm('Tutup formulir? Isian yang sudah diketik akan hilang.')) lanjut(); return; }
+  d.onclose = function(){ if (d.returnValue === '1') lanjut(); d.returnValue = ''; };
+  d.showModal();
+  setTimeout(function(){ var b = d.querySelector('[data-tutup-jawab="0"]'); if (b) b.focus(); }, 40);
 }
+
+(function(){
+  var d = document.getElementById('dlgTutupForm');
+  if (!d) return;
+  d.addEventListener('click', function(ev){
+    var b = ev.target.closest('[data-tutup-jawab]');
+    if (b) { d.close(b.getAttribute('data-tutup-jawab')); return; }
+    /* Klik pada backdrop = batal. */
+    if (ev.target === d) d.close('0');
+  });
+  /* Esc di dalam dialog ini = batal; jangan bocor ke penjaga Esc popup. */
+  d.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') ev.stopPropagation(); });
+})();
 
 document.addEventListener('click', function(ev){
   var tombol = ev.target.closest('[data-tutup-modal]');
@@ -455,23 +490,26 @@ document.addEventListener('click', function(ev){
     /* Tanpa popup di halaman ini (mis. barang_form.php), tautannya dibiarkan
        berjalan apa adanya — itu memang tombol Batal biasa. */
     if (!f || !f.classList.contains('terbuka')) { return; }
-    if (!bolehTutup(f)) { ev.preventDefault(); return; }
 
-    /* Saat menyunting, tombol tutup dibiarkan BERJALAN sebagai tautan biasa
-       ke halaman polos. Menyembunyikan panel saja akan meninggalkan URL yang
+    /* Tautannya dicegah dulu; bila disetujui dan sedang menyunting, URL polos
+       dituju manual. Menyembunyikan panel saja akan meninggalkan URL yang
        masih ?edit=…, sehingga muat ulang membuka formulir yang sama lagi —
        dan orang menyangka penutupannya tidak tersimpan. */
-    if (f && panelModeSunting(f)) { return; }
-
-    tutupFormTambah(ev);
+    ev.preventDefault();
+    var href = tombol.getAttribute('href');
+    bolehTutup(f, function(){
+      if (panelModeSunting(f)) { location.href = href || location.pathname; return; }
+      tutupFormTambah();
+    });
     return;
   }
   // Klik pada lapisan gelap = klik di luar formulir.
   if (ev.target.classList && ev.target.classList.contains('lapis-modal')) {
     var p = panelForm();
-    if (!bolehTutup(p)) { return; }
-    if (p && panelModeSunting(p)) { location.href = location.pathname; return; }
-    tutupFormTambah(ev);
+    bolehTutup(p, function(){
+      if (p && panelModeSunting(p)) { location.href = location.pathname; return; }
+      tutupFormTambah();
+    });
   }
 });
 
@@ -481,9 +519,10 @@ document.addEventListener('keydown', function(ev){
   /* Esc minta konfirmasi kalau ada yang sudah diketik. Formulir ini bisa
      berisi belasan isian; satu tekan Esc yang salah sasaran menghapus semuanya
      tanpa bisa dibatalkan. Yang belum disentuh ditutup begitu saja. */
-  if (!bolehTutup(f)) return;
-  if (f && panelModeSunting(f)) { location.href = location.pathname; return; }
-  tutupFormTambah(ev);
+  bolehTutup(f, function(){
+    if (f && panelModeSunting(f)) { location.href = location.pathname; return; }
+    tutupFormTambah();
+  });
 });
 
 /** Apakah ada isian yang berubah dari nilai awalnya? */
