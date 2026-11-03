@@ -180,7 +180,11 @@ require __DIR__ . '/_header.php';
           <span><b><?= angka($r['total_qty']) ?></b> unit</span>
           <span><b><?= (int) $r['jml_batch'] ?></b> batch</span>
         </div>
-        <small class="mut2">Opname terakhir: <?= $r['opname_terakhir'] ? e(tgl_id($r['opname_terakhir'])) : 'belum pernah' ?></small>
+        <?php if ($r['opname_terakhir']): ?>
+          <small class="mut2">Opname terakhir: <?= e(tgl_id($r['opname_terakhir'])) ?></small>
+        <?php else: ?>
+          <span class="tag t-amber">Belum pernah opname</span>
+        <?php endif; ?>
       </a>
     <?php endforeach; ?>
   </div>
@@ -281,7 +285,8 @@ require __DIR__ . '/_header.php';
 <style>
 .opname-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px }
 .opname-rak{ display:flex; flex-direction:column; gap:6px; text-decoration:none; color:inherit; padding:14px 16px }
-.opname-rak:hover{ border-color:var(--primary-2) }
+a.card.opname-rak:hover{ border-color:rgba(99,102,241,.4) }
+.opname-rak .tag{ align-self:flex-start }
 .opname-kode{ display:flex; justify-content:space-between; gap:8px; font-size:12px }
 .opname-angka{ display:flex; gap:14px; font-size:13px; color:var(--text-2) }
 .kepala-rak{ display:flex; justify-content:space-between; gap:14px; align-items:flex-start }

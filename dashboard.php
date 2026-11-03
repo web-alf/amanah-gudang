@@ -1322,7 +1322,7 @@ $tampilGudang = $lokTipe === '' || $lokTipe === 'gudang'; ?>
   <span class="ket">Yang sebaiknya ditindak lebih dulu</span>
 </div>
 
-<div class="dash-grid-3">
+<div class="dash-grid">
   <div class="card">
     <h3>Mendekati Expired</h3>
     <div class="sub"><?= angka($mendekati + $expExpired) ?> batch · terdekat lebih dulu</div>
@@ -1372,25 +1372,37 @@ $tampilGudang = $lokTipe === '' || $lokTipe === 'gudang'; ?>
       </a>
     <?php endif; ?>
   </div>
+</div>
 
-  <div class="card">
-    <h3>Aktivitas Terbaru</h3>
-    <div class="sub">Jejak perubahan data · <a href="log_aktivitas.php">lihat semua</a></div>
-    <?php if (!$aktivitas): ?>
-      <div class="empty">Belum ada aktivitas tercatat.</div>
-    <?php else: ?>
-      <ul class="tl">
-      <?php foreach ($aktivitas as $a): [$ik, $wrn] = gaya_aktivitas($a['aksi']); ?>
-        <li>
-          <span class="tl-ic" style="--tc:<?= $wrn ?>"><svg aria-hidden="true"><use href="#<?= $ik ?>"></use></svg></span>
-          <div class="tl-tx"><b><?= e($a['deskripsi'] ?: $a['aksi'] . ' ' . $a['modul']) ?></b>
-            <small><?= e($a['petugas'] ?: 'Sistem') ?></small></div>
-          <time><?= e(tgl_jam_id($a['created_at'])) ?></time>
-        </li>
-      <?php endforeach; ?>
-      </ul>
-    <?php endif; ?>
-  </div>
+<?php /* Aktivitas dipindah keluar dari "Perlu Perhatian": jejak perubahan
+   data bukan sesuatu yang perlu DITINDAK seperti stok rendah atau batch
+   kedaluwarsa, jadi mencampurnya di situ melemahkan sinyal "perlu
+   tindakan" dari dua kartu lainnya. Diberi bagiannya sendiri. */ ?>
+<div class="seksi">
+  <svg aria-hidden="true"><use href="#i-clock"></use></svg>
+  <h4>Aktivitas Terbaru</h4>
+  <span class="ket">Jejak perubahan data</span>
+</div>
+
+<div class="card mb16">
+  <div class="sub"><?= count($aktivitas) ?> aktivitas terakhir</div>
+  <?php if (!$aktivitas): ?>
+    <div class="empty">Belum ada aktivitas tercatat.</div>
+  <?php else: ?>
+    <ul class="tl">
+    <?php foreach ($aktivitas as $a): [$ik, $wrn] = gaya_aktivitas($a['aksi']); ?>
+      <li>
+        <span class="tl-ic" style="--tc:<?= $wrn ?>"><svg aria-hidden="true"><use href="#<?= $ik ?>"></use></svg></span>
+        <div class="tl-tx"><b><?= e($a['deskripsi'] ?: $a['aksi'] . ' ' . $a['modul']) ?></b>
+          <small><?= e($a['petugas'] ?: 'Sistem') ?></small></div>
+        <time><?= e(tgl_jam_id($a['created_at'])) ?></time>
+      </li>
+    <?php endforeach; ?>
+    </ul>
+    <a class="btn btn-ghost btn-sm" href="log_aktivitas.php" style="margin-top:12px">
+      <svg aria-hidden="true"><use href="#i-panah-kanan"></use></svg> Lihat seluruh riwayat
+    </a>
+  <?php endif; ?>
 </div>
 
 <div class="card">
